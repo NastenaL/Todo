@@ -1,3 +1,4 @@
+// TODO: Rename filename to .module.ts
 import { NgModule } from "@angular/core";
 import { RouterModule, Routes } from "@angular/router";
 
@@ -8,19 +9,20 @@ import { TodosService } from "./services/todos.service";
 import { MainComponent } from "./components/main/main.component";
 import { CommonModule } from "@angular/common";
 
-const routes: Routes  = [
-    {
-        path: '',
-        component: TodosComponent
-    }
+// TODO: Move into separate file (like app-routing.module)
+const routes: Routes = [
+  {
+    path: "",
+    component: TodosComponent,
+  },
 ];
 
 @NgModule({
-    declarations: [TodosComponent, HeaderComponent, MainComponent, TodoComponent],
-    imports: [CommonModule,RouterModule.forChild(routes)],
-    providers: [TodosService]
+  declarations: [TodosComponent, HeaderComponent, MainComponent, TodoComponent],
+  imports: [CommonModule, RouterModule.forChild(routes)],
+  exports: [RouterModule],
+  // TODO: We can actually use providedIn: root instead of direct usage
+  providers: [TodosService],
 })
 
-export class TodosModule{
-
-}
+export class TodosModule {}

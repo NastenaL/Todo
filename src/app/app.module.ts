@@ -1,20 +1,18 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
+import { NgModule } from "@angular/core";
+import { BrowserModule } from "@angular/platform-browser";
 
-import { AppRoutingModule } from 'src/app/app-routing.module';
-import { AppComponent } from 'src/app/app.component';
-import { TodosModule } from 'src/app/todos/todos.modules';
+import { AppRoutingModule } from "src/app/app-routing.module";
+import { AppComponent } from "src/app/app.component";
+import { TodosModule } from "src/app/todos/todos.modules";
 
 @NgModule({
-  declarations: [
-    AppComponent
-  ],
+  declarations: [AppComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
-    TodosModule
+    // TODO: Remove TodosModule from initial bundle, load as lazy loaded module
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
