@@ -7,7 +7,7 @@
     placeholder="What needs to be done?"
     autoFocus
     [value]="text"
-    (keyup)="changeText($event)"
+    (keyup)="changeText()"
     (keyup.enter)="addTodo()"
     [formControl]="todoControl"
     />

@@ -1,5 +1,7 @@
 import { Component } from "@angular/core";
 import { Observable, combineLatest } from "rxjs";
+import {FormControl} from '@angular/forms';
+
 import { TodoService } from "../../services/todo.service";
 import { TodoInterface } from "../../types/todo.interface";
 import { map } from "rxjs/operators";
@@ -7,23 +9,22 @@ import { FilterEnum } from "../../types/filter.enum";
 
 @Component({
   selector: 'app-todos-main',
-  templateUrl: './main.component.html',
+  templateUrl: './todoList.component.html',
 })
-// TODO: Rename according to module scope. Ex. TodosMain or TodoList, etc.
-export class MainComponent {
+
+export class TodoListComponent {
   visibleTodos$: Observable<TodoInterface[]>;
   // TODO: Use is/has for booleans
-  // TODO: We don't need Class postfix here
-  noTodoClass$: Observable<boolean>;
+  noTodo$: Observable<boolean>;
   isAllTodosSelected$: Observable<boolean>;
+  public mainControl: FormControl = new FormControl('');
 
-  // TODO: Make property as readonly if you will not mutate it
-  constructor(private todoService: TodoService) {
+  constructor(private readonly todoService: TodoService) {
     // TODO: Move this observables into todoService
     this.isAllTodosSelected$ = this.todoService.todos$.pipe(
       map((todos) => todos.every((todo) => todo.isCompleted))
     );
-    this.noTodoClass$ = this.todoService.todos$.pipe(
+    this.noTodo$ = this.todoService.todos$.pipe(
       map((todos) => todos.length === 0)
     );
     // TODO: Fix deprecated usage
@@ -42,8 +43,7 @@ export class MainComponent {
     );
   }
 
-  public onToggleAllTodos(event: Event): void {
-    const target = event.target as HTMLInputElement;
-    this.todoService.toggleAll(target.checked);
+  public onToggleAllTodos(): void {
+    this.todoService.toggleAll(this.mainControl.value);
   }
 }

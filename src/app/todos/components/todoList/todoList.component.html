@@ -1,12 +1,12 @@
-<section class="main" [ngClass]="{ hidden: noTodoClass$ | async }">
-    <!-- TODO: Optionally. Use ReactiveFormModule instead https://angular.io/guide/forms-overview -->
+<section class="main" [ngClass]="{ hidden: noTodo$ | async }">
     <!-- TODO: Recheck and remove all excessive attributes and classes -->
   <input
     id="toggle-all"
     class="toggle-all"
     type="checkbox"
     [checked]="isAllTodosSelected$ | async"
-    (change)="onToggleAllTodos($event)"
+    (change)="onToggleAllTodos()"
+    [formControl]="mainControl"
   />
 
   <label for="toggle-all">Mark all as completed</label>

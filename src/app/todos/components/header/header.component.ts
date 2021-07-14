@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import {FormControl, ReactiveFormsModule} from '@angular/forms';
+import {FormControl} from '@angular/forms';
 
 import { TodoService } from '../../services/todo.service';
 
@@ -12,15 +12,10 @@ export class HeaderComponent {
   public text: string = '';
   public todoControl: FormControl = new FormControl('');
 
-  // TODO: Make property as readonly if you will not mutate it
-  // TODO: Make names matched: todoService and TodosService
-  constructor(private todoService: TodoService) {}
+  constructor(private readonly todoService: TodoService) {}
 
-  // TODO: Refactor to usage ReactiveFormModule instead https://angular.io/guide/forms-overview
-  public changeText(event: Event): void {
-    console.log(this.todoControl);
-    const target = event.target as HTMLInputElement;
-    this.text = target.value;
+  public changeText(): void {
+    this.text = this.todoControl.value;
   }
 
   public addTodo(): void {
