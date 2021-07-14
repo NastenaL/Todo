@@ -1,5 +1,7 @@
 import { Injectable } from "@angular/core";
-import { BehaviorSubject } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
+import { map } from "rxjs/operators";
+
 import { TodoInterface } from "src/app/todos/types/todo.interface";
 import { FilterEnum } from "src/app/todos/types/filter.enum";
 
@@ -28,5 +30,13 @@ export class TodoService {
       };
     });
     this.todos$.next(updatedTodos);
+  }
+
+  public getIsAllTodosSelected() : Observable<boolean>{
+    return this.todos$.pipe(map((todos) => todos.every((todo) => todo.isCompleted)));
+  }
+
+  public getIsNoTodo() : Observable<boolean>{
+    return this.todos$.pipe(map((todos) => todos.length === 0));
   }
 }

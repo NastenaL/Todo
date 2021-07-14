@@ -13,24 +13,18 @@ import { FilterEnum } from "../../types/filter.enum";
 })
 
 export class TodoListComponent {
-  visibleTodos$: Observable<TodoInterface[]>;
-  // TODO: Use is/has for booleans
-  noTodo$: Observable<boolean>;
-  isAllTodosSelected$: Observable<boolean>;
+  public visibleTodos$: Observable<TodoInterface[]>;
+  public isNoTodo$: Observable<boolean>;
+  public isAllTodosSelected$: Observable<boolean>;
   public mainControl: FormControl = new FormControl('');
 
   constructor(private readonly todoService: TodoService) {
-    // TODO: Move this observables into todoService
-    this.isAllTodosSelected$ = this.todoService.todos$.pipe(
-      map((todos) => todos.every((todo) => todo.isCompleted))
-    );
-    this.noTodo$ = this.todoService.todos$.pipe(
-      map((todos) => todos.length === 0)
-    );
-    // TODO: Fix deprecated usage
-    this.visibleTodos$ = combineLatest(
+    this.isAllTodosSelected$ = this.todoService.getIsAllTodosSelected();
+    this.isNoTodo$ = this.todoService.getIsNoTodo();
+
+    this.visibleTodos$ = combineLatest([
       this.todoService.todos$,
-      this.todoService.filter$
+      this.todoService.filter$]
     ).pipe(
       map(([todos, filter]: [TodoInterface[], FilterEnum]) => {
         if (filter == FilterEnum.active) {

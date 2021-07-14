@@ -1,4 +1,4 @@
-<section class="main" [ngClass]="{ hidden: noTodo$ | async }">
+<section class="main" [ngClass]="{ hidden: isNoTodo$ | async }">
     <!-- TODO: Recheck and remove all excessive attributes and classes -->
   <input
     id="toggle-all"
