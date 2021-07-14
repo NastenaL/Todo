@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { Observable, combineLatest } from "rxjs";
-import { TodosService } from "../../services/todos.service";
+import { TodoService } from "../../services/todo.service";
 import { TodoInterface } from "../../types/todo.interface";
 import { map } from "rxjs/operators";
 import { FilterEnum } from "../../types/filter.enum";
@@ -17,9 +17,8 @@ export class MainComponent {
   noTodoClass$: Observable<boolean>;
   isAllTodosSelected$: Observable<boolean>;
 
-  // TODO: Make names matched: todoService and TodosService
   // TODO: Make property as readonly if you will not mutate it
-  constructor(private todoService: TodosService) {
+  constructor(private todoService: TodoService) {
     // TODO: Move this observables into todoService
     this.isAllTodosSelected$ = this.todoService.todos$.pipe(
       map((todos) => todos.every((todo) => todo.isCompleted))
@@ -43,8 +42,7 @@ export class MainComponent {
     );
   }
 
-  // TODO: use "on" as prefix for event handlers
-  toggleAllTodos(event: Event): void {
+  public onToggleAllTodos(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.todoService.toggleAll(target.checked);
   }

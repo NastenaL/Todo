@@ -1,13 +1,15 @@
 <header class="header">
   <h1>todos</h1>
-  <!-- TODO: Use ReactiveFormModule instead https://angular.io/guide/forms-overview -->
-  <!-- TODO: Wrap into form -->
-  <input
+
+  <form>
+    <input
     class="new-todo"
     placeholder="What needs to be done?"
     autoFocus
     [value]="text"
     (keyup)="changeText($event)"
     (keyup.enter)="addTodo()"
-  />
+    [formControl]="todoControl"
+    />
+  </form>
 </header>

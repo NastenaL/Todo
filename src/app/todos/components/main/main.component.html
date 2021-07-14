@@ -6,7 +6,7 @@
     class="toggle-all"
     type="checkbox"
     [checked]="isAllTodosSelected$ | async"
-    (change)="toggleAllTodos($event)"
+    (change)="onToggleAllTodos($event)"
   />
 
   <label for="toggle-all">Mark all as completed</label>

@@ -4,12 +4,11 @@ import { TodoInterface } from "src/app/todos/types/todo.interface";
 import { FilterEnum } from "src/app/todos/types/filter.enum";
 
 @Injectable()
-export class TodosService {
-  todos$ = new BehaviorSubject<TodoInterface[]>([]);
-  filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
+export class TodoService {
+  public todos$ = new BehaviorSubject<TodoInterface[]>([]);
+  public filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
 
-  // TODO: Optionally. Use access modifiers explicitly
-  addTodo(text: string): void {
+  public addTodo(text: string): void {
     const newTodo: TodoInterface = {
       text,
       isCompleted: true,
@@ -20,7 +19,7 @@ export class TodosService {
     this.todos$.next(updatedTodos);
   }
 
-  toggleAll(isCompleted: boolean): void {
+  public toggleAll(isCompleted: boolean): void {
     console.log("isCompleted", isCompleted);
     const updatedTodos = this.todos$.getValue().map((todo) => {
       return {
