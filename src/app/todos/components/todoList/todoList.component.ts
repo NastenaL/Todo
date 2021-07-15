@@ -8,7 +8,7 @@ import { map } from "rxjs/operators";
 import { FilterEnum } from "../../types/filter.enum";
 
 @Component({
-  selector: 'app-todos-main',
+  selector: 'app-todos-list',
   templateUrl: './todoList.component.html',
 })
 
