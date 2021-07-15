@@ -17,6 +17,7 @@ export class TodoListComponent {
   public isNoTodo$: Observable<boolean>;
   public isAllTodosSelected$: Observable<boolean>;
   public mainControl: FormControl = new FormControl('');
+  public editingId: string|null = null;
 
   constructor(private readonly todoService: TodoService) {
     this.isAllTodosSelected$ = this.todoService.getIsAllTodosSelected();
@@ -39,5 +40,9 @@ export class TodoListComponent {
 
   public onToggleAllTodos(): void {
     this.todoService.toggleAll(this.mainControl.value);
+  }
+
+  public setEditingId(editingId: string|null){
+    this.editingId = editingId;
   }
 }

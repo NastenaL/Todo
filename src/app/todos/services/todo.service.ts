@@ -41,4 +41,17 @@ export class TodoService {
   public getIsNoTodo() : Observable<boolean>{
     return this.todos$.pipe(map((todos) => todos.length === 0));
   }
+
+  public changeText(id: string, text: string): void{
+  const updatedTodos = this.todos$.getValue().map((todo) => {
+    if(todo.id === id){
+      return{
+        ...todo,
+        text,
+      };
+    }
+    return todo;
+  });
+  this.todos$.next(updatedTodos);
+  }
 }
