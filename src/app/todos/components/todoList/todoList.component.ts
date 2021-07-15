@@ -3,7 +3,7 @@ import { Observable, combineLatest } from "rxjs";
 import {FormControl} from '@angular/forms';
 
 import { TodoService } from "../../services/todo.service";
-import { TodoInterface } from "../../types/todo.interface";
+import { TodoType } from "../../types/todo.Type";
 import { map } from "rxjs/operators";
 import { FilterEnum } from "../../enums/filter.enum";
 
@@ -13,7 +13,7 @@ import { FilterEnum } from "../../enums/filter.enum";
 })
 
 export class TodoListComponent {
-  public visibleTodos$: Observable<TodoInterface[]>;
+  public visibleTodos$: Observable<TodoType[]>;
   public isNoTodo$: Observable<boolean>;
   public isAllTodosSelected$: Observable<boolean>;
   public mainControl: FormControl = new FormControl('');
@@ -26,7 +26,7 @@ export class TodoListComponent {
       this.todoService.todos$,
       this.todoService.filter$]
     ).pipe(
-      map(([todos, filter]: [TodoInterface[], FilterEnum]) => {
+      map(([todos, filter]: [TodoType[], FilterEnum]) => {
         if (filter == FilterEnum.active) {
           return todos.filter((todo) => !todo.isCompleted);
         } else if (filter == FilterEnum.completed) {

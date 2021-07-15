@@ -1,10 +1,10 @@
 import { Component, Input } from "@angular/core";
-import { TodoInterface } from "../../types/todo.interface";
+import { TodoType } from "../../types/todo.Type";
 
 @Component({
   selector: "app-todos-todo",
   templateUrl: "./todo.component.html",
 })
 export class TodoComponent {
-  @Input("todo") todoText: TodoInterface;
+  @Input("todo") todoText: TodoType;
 }

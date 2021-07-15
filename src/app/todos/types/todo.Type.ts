@@ -1,4 +1,4 @@
-export class TodoInterface {
+export class TodoType {
   id: string;
   text: string;
   isCompleted: boolean;

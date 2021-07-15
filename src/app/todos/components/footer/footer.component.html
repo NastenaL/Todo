@@ -1,0 +1,5 @@
+<footer class="footer" [ngClass]="{hidden: noTodoClass$ | async}">
+    <span class="todo-count">
+        <strong>{{ activeCount$ | async }}</strong> item(s) left
+    </span>>
+</footer>

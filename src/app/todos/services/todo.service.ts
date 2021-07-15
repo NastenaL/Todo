@@ -2,7 +2,7 @@ import { Injectable } from "@angular/core";
 import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
-import { TodoInterface } from "src/app/todos/types/todo.interface";
+import { TodoType } from "src/app/todos/types/todo.Type";
 import { FilterEnum } from "src/app/todos/enums/filter.enum";
 import {TodoUtil} from 'src/app/todos/util/todo.util'
 
@@ -10,13 +10,13 @@ import {TodoUtil} from 'src/app/todos/util/todo.util'
   providedIn: 'root'
 })
 export class TodoService {
-  public todos$ = new BehaviorSubject<TodoInterface[]>([]);
+  public todos$ = new BehaviorSubject<TodoType[]>([]);
   public filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
 
   public addTodo(text: string): void {
-    const newTodo: TodoInterface = {
+    const newTodo: TodoType = {
       text,
-      isCompleted: true,
+      isCompleted: false,
       id: TodoUtil.getId(),
     };
     const updatedTodos = [...this.todos$.getValue(), newTodo];
