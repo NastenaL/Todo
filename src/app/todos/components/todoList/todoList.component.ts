@@ -5,7 +5,7 @@ import {FormControl} from '@angular/forms';
 import { TodoService } from "../../services/todo.service";
 import { TodoInterface } from "../../types/todo.interface";
 import { map } from "rxjs/operators";
-import { FilterEnum } from "../../types/filter.enum";
+import { FilterEnum } from "../../enums/filter.enum";
 
 @Component({
   selector: 'app-todos-list',

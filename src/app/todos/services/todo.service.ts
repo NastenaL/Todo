@@ -3,10 +3,12 @@ import { BehaviorSubject, Observable } from "rxjs";
 import { map } from "rxjs/operators";
 
 import { TodoInterface } from "src/app/todos/types/todo.interface";
-import { FilterEnum } from "src/app/todos/types/filter.enum";
+import { FilterEnum } from "src/app/todos/enums/filter.enum";
 import {TodoUtil} from 'src/app/todos/util/todo.util'
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TodoService {
   public todos$ = new BehaviorSubject<TodoInterface[]>([]);
   public filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
