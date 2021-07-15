@@ -24,7 +24,7 @@ export class TodoComponent implements OnInit{
   }
 
   public removeTodo(): void{
-
+    this.todoService.removeTodo(this.todo.id);
   }
 
   public toggleTodo(): void{
