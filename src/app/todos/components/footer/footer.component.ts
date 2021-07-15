@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { FilterEnum } from '../../enums/filter.enum';
 import { TodoService } from '../../services/todo.service';
 
 @Component({
@@ -8,8 +9,10 @@ import { TodoService } from '../../services/todo.service';
   templateUrl: './footer.component.html',
 })
 export class FooterComponent {
-    noTodoClass$: Observable<boolean>;
-    activeCount$: Observable<number>;
+    public noTodoClass$: Observable<boolean>;
+    public activeCount$: Observable<number>;
+    public filterEnum = FilterEnum;
+    public filter$: Observable<FilterEnum>;
 
     constructor(private todoService: TodoService){
         this.activeCount$ = this.todoService.todos$.pipe(
@@ -18,5 +21,11 @@ export class FooterComponent {
         this.noTodoClass$ = this.todoService.todos$.pipe(
         map((todos) => todos.length === 0)
         );
+        this.filter$ = this.todoService.filter$;
+    }
+
+    public changeFilter(event: Event, filter: FilterEnum): void{
+        event.preventDefault();
+        this.todoService.filter$.next(filter);
     }
 }
