@@ -4,6 +4,7 @@ import { map } from "rxjs/operators";
 
 import { TodoInterface } from "src/app/todos/types/todo.interface";
 import { FilterEnum } from "src/app/todos/types/filter.enum";
+import {TodoUtil} from 'src/app/todos/util/todo.util'
 
 @Injectable()
 export class TodoService {
@@ -14,8 +15,7 @@ export class TodoService {
     const newTodo: TodoInterface = {
       text,
       isCompleted: true,
-      // TODO: Looks like util/helper function
-      id: Math.random().toString(16),
+      id: TodoUtil.getId(),
     };
     const updatedTodos = [...this.todos$.getValue(), newTodo];
     this.todos$.next(updatedTodos);
