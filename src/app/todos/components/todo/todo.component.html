@@ -4,7 +4,7 @@
             class="toggle" 
             type="checkbox"
             [checked]="todo.isCompleted"
-            (change)="toggleTodo"
+            (change)="toggleTodo()"
         />
         <label (dblclick)="setTodoInEditMode()">{{ todo.text }}</label>
         <button 

@@ -60,4 +60,17 @@ export class TodoService {
 
     this.todos$.next(updatedTodos);
   }
+
+  public changeStatus(id: string):void{
+    const updatedTodos = this.todos$.getValue().map((todo) => {
+    if(todo.id === id){
+      return{
+        ...todo,
+        isCompleted: !todo.isCompleted,
+      };
+    }
+    return todo;
+  });
+  this.todos$.next(updatedTodos);
+  }
 }

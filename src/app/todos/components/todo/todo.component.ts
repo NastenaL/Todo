@@ -28,7 +28,7 @@ export class TodoComponent implements OnInit{
   }
 
   public toggleTodo(): void{
-
+    this.todoService.changeStatus(this.todo.id);
   }
 
   public changeText(event: Event):void{
