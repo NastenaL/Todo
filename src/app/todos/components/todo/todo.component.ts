@@ -3,8 +3,7 @@ import { TodoService } from '../../services/todo.service';
 import { TodoType } from '../../types/todo.Type';
 
 @Component({
-  // TODO: Make selector, filename and class name matched https://angular.io/guide/styleguide#symbols-and-file-names
-  selector: 'app-todos-todo',
+  selector: 'app-todo',
   templateUrl: './todo.component.html',
 })
 export class TodoComponent implements OnInit {

@@ -2,13 +2,10 @@
   <h1>todos</h1>
 
   <form>
-    <!-- TODO: Remove [value]="text", (keyup)="changeText()" bindings, since there are already supported behaviors by formControl directive  -->
     <input
       class="new-todo"
       placeholder="What needs to be done?"
       autoFocus
-      [value]="text"
-      (keyup)="changeText()"
       (keyup.enter)="addTodo()"
       [formControl]="todoControl"
     />

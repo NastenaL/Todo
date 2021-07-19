@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
-import { FilterEnum } from 'src/app/todos/enums/filter.enum';
+import { Filter } from 'src/app/todos/enums/filter.enum';
 import { TodoType } from 'src/app/todos/types/todo.Type';
 import { TodoUtil } from 'src/app/todos/util/todo.util';
 
@@ -13,7 +13,7 @@ export class TodoService {
   // TODO: Hide subject within the service and expose only observables as readonly values and public methods for manage updates
   // TODO: Remove $ for all non-observable values/members
   public todos$ = new BehaviorSubject<TodoType[]>([]);
-  public filter$ = new BehaviorSubject<FilterEnum>(FilterEnum.all);
+  public filter$ = new BehaviorSubject<Filter>(Filter.all);
 
   public addTodo(text: string): void {
     // TODO: Move into class constructor
@@ -87,5 +87,21 @@ export class TodoService {
       return todo;
     });
     this.todos$.next(updatedTodos);
+  }
+
+  public getVisibleTodos() : Observable<TodoType[]>{
+    return combineLatest([
+      this.todos$,
+      this.filter$,
+    ]).pipe(
+      map(([todos, filter]: [TodoType[], Filter]) => {
+        if (filter == Filter.active) {
+          return todos.filter((todo) => !todo.isCompleted);
+        } else if (filter == Filter.completed) {
+          return todos.filter((todo) => todo.isCompleted);
+        }
+        return todos;
+      })
+    );
   }
 }
