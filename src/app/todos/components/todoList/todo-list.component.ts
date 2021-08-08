@@ -7,6 +7,7 @@ import { TodoType } from '../../types/todo.Type';
 @Component({
   selector: 'app-todos-list',
   templateUrl: './todo-list.component.html',
+  styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent {
   public readonly visibleTodos$: Observable<TodoType[]> = this.todoService.getVisibleTodos();

@@ -25,7 +25,6 @@ export class TodosHeaderComponent {
     // https://angular.io/guide/inputs-outputs#sharing-data-between-child-and-parent-directives-and-components
     // https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/
     this.newItemEvent.emit(this.text);
-    console.log(this.newItemEvent);
     this.todoService.addTodo(this.text);
     this.text = '';
   }

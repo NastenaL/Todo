@@ -8,12 +8,13 @@ import { TodoService } from '../../services/todo.service';
   // TODO: Make selector, filename and class name matched https://angular.io/guide/styleguide#symbols-and-file-names
   selector: 'app-todos-footer',
   templateUrl: './footer.component.html',
+  styleUrls: ['./footer.component.css'],
 })
 export class FooterComponent {
-  public noTodoClass$: Observable<boolean>;
+  public isEmptyList$: Observable<boolean>;
   public activeCount$: Observable<number>;
   public filterEnum = Filter;
-  public filter$: Observable<Filter>;
+  public filter$: Observable<Filter> = this.todoService.filter$;
 
   // TODO: Please, add readonly modifier
   constructor(private todoService: TodoService) {
@@ -21,11 +22,9 @@ export class FooterComponent {
     this.activeCount$ = this.todoService.todos$.pipe(
       map((todos) => todos.filter((todo) => !todo.isCompleted).length)
     );
-    this.noTodoClass$ = this.todoService.todos$.pipe(
+    this.isEmptyList$ = this.todoService.todos$.pipe(
       map((todos) => todos.length === 0)
     );
-    // TODO: Move into property declaration level
-    this.filter$ = this.todoService.filter$;
   }
 
   public changeFilter(event: Event, filter: Filter): void {

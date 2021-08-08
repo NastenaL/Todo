@@ -5,6 +5,7 @@ import { TodoType } from '../../types/todo.Type';
 @Component({
   selector: 'app-todo',
   templateUrl: './todo.component.html',
+  styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
   // TODO: Remove excessive bindingPropertyName property. Try to always keep names matched https://angular.io/guide/styleguide#avoid-aliasing-inputs-and-outputs

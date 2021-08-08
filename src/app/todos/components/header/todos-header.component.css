@@ -1,3 +1,20 @@
 .new-todo {
 font-size: 24px;
 }
+
+.todoapp {
+	background: #fff;
+	margin: 130px 0 40px 0;
+	position: relative;
+}
+
+.new-todo,
+.edit {
+	position: relative;
+	margin: 0;
+	width: 100%;
+	font-size: 24px;
+	color: inherit;
+	padding: 6px;
+	border: 1px solid #999;
+}

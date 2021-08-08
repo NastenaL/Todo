@@ -1,6 +1,4 @@
-<!-- TODO: Use is/has for boolean variables -->
-<!-- TODO: Remove Class word as postfix. We can rename this prop to like this examples: isEmptyList, isEmpty, isNoData, etc. -->
-<footer class="footer" [ngClass]="{ hidden: noTodoClass$ | async }">
+<footer class="footer" [ngClass]="{ isHidden: isEmptyList$ | async }">
   <span class="todo-count">
     <strong>{{ activeCount$ | async }}</strong> item(s) left
   </span>
