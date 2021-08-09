@@ -89,6 +89,7 @@ export class TodoService {
     this.todos$.next(updatedTodos);
   }
 
+
   public getVisibleTodos() : Observable<TodoType[]>{
     return combineLatest([
       this.todos$,

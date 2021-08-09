@@ -14,6 +14,7 @@ export class FooterComponent {
   public isEmptyList$: Observable<boolean>;
   public activeCount$: Observable<number>;
   public filterEnum = Filter;
+  // TODO: Add readonly and remove excessive typing
   public filter$: Observable<Filter> = this.todoService.filter$;
 
   // TODO: Please, add readonly modifier
