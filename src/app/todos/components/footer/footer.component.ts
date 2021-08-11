@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Filter } from '../../enums/filter.enum';
@@ -16,8 +17,11 @@ export class FooterComponent {
   public filterEnum = Filter;
   public filter$: Observable<Filter> = this.todoService.filter$;
 
-  // TODO: Please, add readonly modifier
-  constructor(private todoService: TodoService) {
+  constructor(
+    private readonly todoService: TodoService,
+    private readonly activateRoute: ActivatedRoute,
+    private readonly router: Router
+    ) {
     // TODO: Move into service level and move to property declaration
     this.activeCount$ = this.todoService.todos$.pipe(
       map((todos) => todos.filter((todo) => !todo.isCompleted).length)
@@ -26,6 +30,11 @@ export class FooterComponent {
       map((todos) => todos.length === 0)
     );
   }
+
+public ngAfterViewInit(){
+  this.activateRoute.url.subscribe(console.log);
+  this.router.events.subscribe(console.log);
+}
 
   public changeFilter(event: Event, filter: Filter): void {
     //   TODO: Remove by refactoring to routerLink directives

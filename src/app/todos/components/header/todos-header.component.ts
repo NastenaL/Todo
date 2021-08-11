@@ -26,6 +26,6 @@ export class TodosHeaderComponent {
     // https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/
     this.newItemEvent.emit(this.text);
     this.todoService.addTodo(this.text);
-    this.text = '';
+    this.todoControl.reset();
   }
 }

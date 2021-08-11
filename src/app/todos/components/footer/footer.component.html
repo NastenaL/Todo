@@ -5,12 +5,12 @@
 
   <ul class="filters">
     <li>
-      <!-- TODO: Replace  href="/" to routerLink directive  -->
       <!-- TODO: Replace [ngClass]="{ selected: ... } to routerLinkActive directive  -->
       <!-- TODO: Don't subscribe multiple times to one cold observable for sake to performance reasons  -->
       <!-- TODO: Refactor this approach to ngFor instead. It's could be more easily to extend this functionality and express it by array of link models instead -->
       <a
-        href="/"
+        [routerLink]="['/all']"
+        routerLinkActive="active"
         [ngClass]="{ selected: (filter$ | async) === filterEnum.all }"
         (click)="changeFilter($event, filterEnum.all)"
       >
@@ -19,7 +19,8 @@
     </li>
     <li>
       <a
-        href="/"
+        [routerLink]="['/active']"
+        routerLinkActive="active"
         [ngClass]="{ selected: (filter$ | async) === filterEnum.active }"
         (click)="changeFilter($event, filterEnum.active)"
       >
@@ -28,7 +29,8 @@
     </li>
     <li>
       <a
-        href="/"
+        [routerLink]="['/completed']"
+        routerLinkActive="active"
         [ngClass]="{ selected: (filter$ | async) === filterEnum.completed }"
         (click)="changeFilter($event, filterEnum.completed)"
       >
