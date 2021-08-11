@@ -89,7 +89,6 @@ export class TodoService {
     this.todos$.next(updatedTodos);
   }
 
-
   public getVisibleTodos() : Observable<TodoType[]>{
     return combineLatest([
       this.todos$,
@@ -103,6 +102,22 @@ export class TodoService {
         }
         return todos;
       })
+    );
+  }
+
+public changeFilter(filter: Filter): void{
+  this.filter$.next(filter);
+}
+
+  get activeCount(){
+    return this.todos$.pipe(
+      map((todos) => todos.filter((todo) => !todo.isCompleted).length)
+    );
+  }
+
+  get isEmptyList(){
+    return this.todos$.pipe(
+      map((todos) => todos.length === 0)
     );
   }
 }
