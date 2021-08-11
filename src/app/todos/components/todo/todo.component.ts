@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
-import { TodoType } from '../../types/todo.Type';
+import { TodoModel } from '../../models/todo.model';
 
 @Component({
   selector: 'app-todo',
@@ -9,7 +9,7 @@ import { TodoType } from '../../types/todo.Type';
 })
 export class TodoComponent implements OnInit {
   // TODO: Remove excessive bindingPropertyName property. Try to always keep names matched https://angular.io/guide/styleguide#avoid-aliasing-inputs-and-outputs
-  @Input('todo') todo: TodoType;
+  @Input('todo') todo: TodoModel;
   @Input('isEditing') isEditing: boolean;
   // TODO: Remove excessive typing. We can use simple new EventEmitter<T>(); for it
   // TODO: Please, rename to editingId, editIdChange.

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Filter } from 'src/app/todos/enums/filter.enum';
-import { TodoType } from 'src/app/todos/types/todo.Type';
+import { TodoModel } from 'src/app/todos/models/todo.model';
 import { TodoUtil } from 'src/app/todos/util/todo.util';
 
 @Injectable({
@@ -12,12 +12,12 @@ export class TodoService {
   // TODO: Check and make props private and mark them as readonly
   // TODO: Hide subject within the service and expose only observables as readonly values and public methods for manage updates
   // TODO: Remove $ for all non-observable values/members
-  public todos$ = new BehaviorSubject<TodoType[]>([]);
+  public todos$ = new BehaviorSubject<TodoModel[]>([]);
   public filter$ = new BehaviorSubject<Filter>(Filter.all);
 
   public addTodo(text: string): void {
     // TODO: Move into class constructor
-    const newTodo: TodoType = {
+    const newTodo: TodoModel = {
       text,
       isCompleted: false,
       id: TodoUtil.getId(),
@@ -89,12 +89,12 @@ export class TodoService {
     this.todos$.next(updatedTodos);
   }
 
-  public getVisibleTodos() : Observable<TodoType[]>{
+  public getVisibleTodos() : Observable<TodoModel[]>{
     return combineLatest([
       this.todos$,
       this.filter$,
     ]).pipe(
-      map(([todos, filter]: [TodoType[], Filter]) => {
+      map(([todos, filter]: [TodoModel[], Filter]) => {
         if (filter == Filter.active) {
           return todos.filter((todo) => !todo.isCompleted);
         } else if (filter == Filter.completed) {
