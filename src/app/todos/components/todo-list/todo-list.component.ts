@@ -23,7 +23,11 @@ export class TodoListComponent {
     this.todoService.toggleAll(this.mainControl.value);
   }
 
-  public setEditingId(editingId: string | null):void {
+  public onEditingId(editingId: string | null):void {
     this.editingId = editingId;
+  }
+
+  public getIsEditing(todo : TodoModel): boolean{
+    return this.editingId === todo.id;
   }
 }

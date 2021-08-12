@@ -13,13 +13,11 @@
   <label for="toggle-all">Mark all as completed</label>
 
   <ul class="todo-list">
-    <!-- TODO: Move editingId === todo.id out from template. We should use component/service logic for it -->
-    <!-- TODO: Use "on" as prefix for event handlers https://angular.io/guide/styleguide#style-05-16 -->
     <app-todo
       *ngFor="let todo of visibleTodos$ | async"
       [todo]="todo"
-      [isEditing]="editingId === todo.id"
-      (editingId)="setEditingId($event)"
+      [isEditing]="getIsEditing(todo)"
+      (editingId)="onEditingId($event)"
     ></app-todo>
   </ul>
 </section>
