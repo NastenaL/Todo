@@ -10,6 +10,7 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
   styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent {
+
   get currentTodos(): Observable<TodoModel[]>
   {
     return this.todoService.getVisibleTodos();
@@ -19,7 +20,7 @@ export class TodoListComponent {
   {
     return this.todoService.getIsNoTodo();
   } 
-
+  
   public readonly toggleAll: FormControl = new FormControl('');
   public editingId: string | null = null;
 

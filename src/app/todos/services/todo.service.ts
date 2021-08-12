@@ -21,6 +21,7 @@ export class TodoService {
       text,
       isCompleted: false,
       id: TodoUtil.getId(),
+      isEditing: false,
     };
     // TODO: Move this.todos$.getValue() into private getter and reuse at other places
     const updatedTodos = [...this.todos$.getValue(), newTodo];

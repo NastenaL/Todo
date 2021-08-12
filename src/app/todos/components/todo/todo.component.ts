@@ -9,19 +9,15 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./todo.component.css'],
 })
 export class TodoComponent implements OnInit {
-  // TODO: Remove excessive bindingPropertyName property. Try to always keep names matched https://angular.io/guide/styleguide#avoid-aliasing-inputs-and-outputs
-  @Input('todo') todo: TodoModel;
-  @Input('isEditing') isEditing: boolean;
-  // TODO: Remove excessive typing. We can use simple new EventEmitter<T>(); for it
+  @Input() todo: TodoModel;
+  @Input() isEditing: boolean;
   // We can interpret this event emitter like a simple html element event, like click, change and so on.
-  @Output('editingId') editingId: EventEmitter<string | null> =
+  @Output() editingId: EventEmitter<string | null> =
     new EventEmitter<string | null>();
 
-  // TODO: Replace to FormControl
   public editingText = new FormControl();
 
-  // TODO: Please, add readonly modifier
-  constructor(private todoService: TodoService) {}
+  constructor(private readonly todoService: TodoService) {}
 
   ngOnInit(): void {
     this.editingText.setValue(this.todo.text);
