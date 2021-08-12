@@ -1,20 +1,16 @@
-<section class="main" [ngClass]="{ hidden: isNoTodo$ | async }">
-  <!-- TODO: Recheck and remove all excessive attributes and classes -->
-  <!-- TODO: Check and remove checked and change or formControl. We could stick with one of this solutions -->
+<section class="main" [ngClass]="{ hidden: isTodoListEmpty | async }">
   <input
     id="toggle-all"
-    class="toggle-all"
     type="checkbox"
-    [checked]="isAllTodosSelected$ | async"
     (change)="onToggleAllTodos()"
-    [formControl]="mainControl"
+    [formControl]="toggleAll"
   />
 
   <label for="toggle-all">Mark all as completed</label>
 
   <ul class="todo-list">
     <app-todo
-      *ngFor="let todo of visibleTodos$ | async"
+      *ngFor="let todo of currentTodos | async"
       [todo]="todo"
       [isEditing]="getIsEditing(todo)"
       (editingId)="onEditingId($event)"

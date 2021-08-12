@@ -10,17 +10,23 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
   styleUrls: ['./todo-list.component.css'],
 })
 export class TodoListComponent {
-  // TODO: Refactor to getters and rename to visibleTodos$, isNoTodo$, etc.
-  public readonly visibleTodos$: Observable<TodoModel[]> = this.todoService.getVisibleTodos();
-  public readonly isNoTodo$: Observable<boolean> = this.todoService.getIsNoTodo();
-  public readonly isAllTodosSelected$: Observable<boolean> = this.todoService.getIsAllTodosSelected();
-  public readonly mainControl: FormControl = new FormControl('');
+  get currentTodos(): Observable<TodoModel[]>
+  {
+    return this.todoService.getVisibleTodos();
+  } 
+  
+  get isTodoListEmpty(): Observable<boolean>
+  {
+    return this.todoService.getIsNoTodo();
+  } 
+
+  public readonly toggleAll: FormControl = new FormControl('');
   public editingId: string | null = null;
 
   constructor(private readonly todoService: TodoService) {}
 
   public onToggleAllTodos(): void {
-    this.todoService.toggleAll(this.mainControl.value);
+    this.todoService.onToggleAllTodos(this.toggleAll.value);
   }
 
   public onEditingId(editingId: string | null):void {

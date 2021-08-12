@@ -27,7 +27,7 @@ export class TodoService {
     this.todos$.next(updatedTodos);
   }
 
-  public toggleAll(isCompleted: boolean): void {
+  public onToggleAllTodos(isCompleted: boolean): void {
     console.log('isCompleted', isCompleted);
     const updatedTodos = this.todos$.getValue().map((todo) => {
       return {
@@ -36,14 +36,6 @@ export class TodoService {
       };
     });
     this.todos$.next(updatedTodos);
-  }
-
-  // TODO: Convert to property
-  public getIsAllTodosSelected(): Observable<boolean> {
-    // TODO: Use todos observable instead of subject directly
-    return this.todos$.pipe(
-      map((todos) => todos.every((todo) => todo.isCompleted))
-    );
   }
 
   // TODO: Convert to property
