@@ -13,7 +13,7 @@ export class FooterComponent {
   public isEmptyList$: Observable<boolean> = this.todoService.isEmptyList;
   public activeCount$: Observable<number> = this.todoService.activeCount;
   public filterEnum = Filter;
-  public readonly filter$ = this.todoService.filter$;
+  public readonly filter = this.todoService.filter;
 
   constructor(
     private readonly todoService: TodoService,
