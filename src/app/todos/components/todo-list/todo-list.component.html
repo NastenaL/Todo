@@ -19,7 +19,7 @@
       *ngFor="let todo of visibleTodos$ | async"
       [todo]="todo"
       [isEditing]="editingId === todo.id"
-      (setEditingId)="setEditingId($event)"
+      (editingId)="setEditingId($event)"
     ></app-todo>
   </ul>
 </section>

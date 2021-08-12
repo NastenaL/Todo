@@ -12,8 +12,7 @@
   <ng-container *ngIf="isEditing">
     <input
       class="edit"
-      [value]="editingText"
-      (keyup)="changeText($event)"
+      [formControl]="editingText"
       (keyup.enter)="changeTodo()"
     />
   </ng-container>
