@@ -66,7 +66,7 @@ export class TodoService {
   // TODO: Check if we can rename according to actual functionality
   // Change status sounds like a general function that will take same status from one to another
   // At the current case, we can rename to completeTodo, or toggleTodo like a original component method name
-  public changeStatus(id: string): void {
+  public toggleTodo(id: string): void {
     const updatedTodos = this.todos.getValue().map((todo) => {
       if (todo.id === id) {
         return {
