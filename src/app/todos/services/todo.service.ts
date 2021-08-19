@@ -9,7 +9,7 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
 })
 export class TodoService {
   private readonly todos = new BehaviorSubject<TodoModel[]>([]);
-  public readonly filter = new BehaviorSubject<Filter>(Filter.all);
+  public readonly filter = new BehaviorSubject<Filter>(Filter.All);
   private isNoTodo: Observable<boolean>;
 
   public addTodo(text: string): void {
@@ -59,9 +59,6 @@ export class TodoService {
     this.todos.next(updatedTodos);
   }
 
-  // TODO: Check if we can rename according to actual functionality
-  // Change status sounds like a general function that will take same status from one to another
-  // At the current case, we can rename to completeTodo, or toggleTodo like a original component method name
   public toggleTodo(id: string): void {
     const updatedTodos = this.todosItems.map((todo) => {
       if (todo.id === id) {
@@ -81,9 +78,9 @@ export class TodoService {
       this.filter,
     ]).pipe(
       map(([todos, filter]: [TodoModel[], Filter]) => {
-        if (filter == Filter.active) {
+        if (filter == Filter.Active) {
           return todos.filter((todo) => !todo.isCompleted);
-        } else if (filter == Filter.completed) {
+        } else if (filter == Filter.Completed) {
           return todos.filter((todo) => todo.isCompleted);
         }
         return todos;
@@ -91,9 +88,9 @@ export class TodoService {
     );
   }
 
-public changeFilter(filter: Filter): void{
-  this.filter.next(filter);
-}
+  public changeFilter(filter: Filter): void{
+    this.filter.next(filter);
+  }
 
   public get activeCount(){
     return this.todos.pipe(

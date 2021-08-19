@@ -10,8 +10,8 @@
       <a
         [routerLink]="['/all']"
         routerLinkActive="active"
-        [ngClass]="{ selected: (filter | async) === filterEnum.all }"
-        (click)="changeFilter($event, filterEnum.all)"
+        [ngClass]="{ selected: (filter | async) === filterEnum.All }"
+        (click)="changeFilter($event, filterEnum.All)"
       >
         All
       </a>
@@ -20,8 +20,8 @@
       <a
         [routerLink]="['/active']"
         routerLinkActive="active"
-        [ngClass]="{ selected: (filter | async) === filterEnum.active }"
-        (click)="changeFilter($event, filterEnum.active)"
+        [ngClass]="{ selected: (filter | async) === filterEnum.Active }"
+        (click)="changeFilter($event, filterEnum.Active)"
       >
         Active
       </a>
@@ -30,8 +30,8 @@
       <a
         [routerLink]="['/completed']"
         routerLinkActive="active"
-        [ngClass]="{ selected: (filter | async) === filterEnum.completed }"
-        (click)="changeFilter($event, filterEnum.completed)"
+        [ngClass]="{ selected: (filter | async) === filterEnum.Completed }"
+        (click)="changeFilter($event, filterEnum.Completed)"
       >
         Completed
       </a>

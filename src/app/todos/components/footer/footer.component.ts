@@ -9,6 +9,7 @@ import { TodoService } from '../../services/todo.service';
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.css'],
 })
+
 export class FooterComponent {
   public isEmptyList$: Observable<boolean> = this.todoService.isEmptyList;
   public activeCount$: Observable<number> = this.todoService.activeCount;
@@ -19,13 +20,12 @@ export class FooterComponent {
     private readonly todoService: TodoService,
     private readonly activateRoute: ActivatedRoute,
     private readonly router: Router
-    ) {
-  }
+    ) {}
 
-public ngAfterViewInit(){
-  this.activateRoute.url.subscribe(console.log);
-  this.router.events.subscribe(console.log);
-}
+  public ngAfterViewInit(){
+    this.activateRoute.url.subscribe(console.log);
+    this.router.events.subscribe(console.log);
+  }
 
   public changeFilter(event: Event, filter: Filter): void {
     //   TODO: Remove by refactoring to routerLink directives
