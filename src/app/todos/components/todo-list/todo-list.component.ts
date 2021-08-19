@@ -18,7 +18,7 @@ export class TodoListComponent {
   
   get isTodoListEmpty(): Observable<boolean>
   {
-    return this.todoService.getIsNoTodo();
+    return this.todoService.getIsNoTodo;
   } 
   
   public readonly toggleAll: FormControl = new FormControl('');

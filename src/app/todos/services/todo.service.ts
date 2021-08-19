@@ -1,9 +1,8 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Input } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Filter } from 'src/app/todos/enums/filter.enum';
 import { TodoModel } from 'src/app/todos/models/todo.model';
-import { TodoUtil } from 'src/app/todos/util/todo.util';
 
 @Injectable({
   providedIn: 'root',
@@ -11,23 +10,17 @@ import { TodoUtil } from 'src/app/todos/util/todo.util';
 export class TodoService {
   private readonly todos = new BehaviorSubject<TodoModel[]>([]);
   public readonly filter = new BehaviorSubject<Filter>(Filter.all);
+  private isNoTodo: Observable<boolean>;
 
   public addTodo(text: string): void {
-    // TODO: Move into class constructor
-    const newTodo: TodoModel = {
-      text,
-      isCompleted: false,
-      id: TodoUtil.getId(),
-      isEditing: false,
-    };
-    // TODO: Move this.todos$.getValue() into private getter and reuse at other places
-    const updatedTodos = [...this.todos.getValue(), newTodo];
+    const newTodo: TodoModel =  new TodoModel(text);
+    const updatedTodos = [...this.todosItems, newTodo];
     this.todos.next(updatedTodos);
   }
 
   public onToggleAllTodos(isCompleted: boolean): void {
     console.log('isCompleted', isCompleted);
-    const updatedTodos = this.todos.getValue().map((todo) => {
+    const updatedTodos = this.todosItems.map((todo) => {
       return {
         ...todo,
         isCompleted,
@@ -36,14 +29,17 @@ export class TodoService {
     this.todos.next(updatedTodos);
   }
 
-  // TODO: Convert to property
-  public getIsNoTodo(): Observable<boolean> {
+  public get getIsNoTodo(): Observable<boolean> {
     return this.todos.pipe(map((todos) => todos.length === 0));
+  }
+
+  @Input() set setIsNoTodo(value: Observable<boolean>) {
+    this.isNoTodo = value;
   }
 
   public changeText(id: string, text: string): void {
     // TODO: Check and reuse update by id functionality. Could be reused at changeText and changeStatus methods
-    const updatedTodos = this.todos.getValue().map((todo) => {
+    const updatedTodos = this.todosItems.map((todo) => {
       if (todo.id === id) {
         return {
           ...todo,
@@ -67,7 +63,7 @@ export class TodoService {
   // Change status sounds like a general function that will take same status from one to another
   // At the current case, we can rename to completeTodo, or toggleTodo like a original component method name
   public toggleTodo(id: string): void {
-    const updatedTodos = this.todos.getValue().map((todo) => {
+    const updatedTodos = this.todosItems.map((todo) => {
       if (todo.id === id) {
         return {
           ...todo,
@@ -99,15 +95,19 @@ public changeFilter(filter: Filter): void{
   this.filter.next(filter);
 }
 
-  get activeCount(){
+  public get activeCount(){
     return this.todos.pipe(
       map((todos) => todos.filter((todo) => !todo.isCompleted).length)
     );
   }
 
-  get isEmptyList(){
+  public get isEmptyList(){
     return this.todos.pipe(
       map((todos) => todos.length === 0)
     );
+  }
+  
+  private get todosItems(){
+    return this.todos.getValue();
   }
 }
