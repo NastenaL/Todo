@@ -15,6 +15,10 @@ export class FooterComponent {
   public activeCount$: Observable<number> = this.todoService.activeCount;
   public filterEnum = Filter;
   public readonly filter = this.todoService.filter;
+  public readonly filters = [{ text: Filter.Active, url: '/'+Filter.Active}, 
+    {text: Filter.All, url: '/'+Filter.All} ,
+    {text: Filter.Completed, url: '/'+Filter.Completed}];
+
 
   constructor(
     private readonly todoService: TodoService,
@@ -27,9 +31,7 @@ export class FooterComponent {
     this.router.events.subscribe(console.log);
   }
 
-  public changeFilter(event: Event, filter: Filter): void {
-    //   TODO: Remove by refactoring to routerLink directives
-    event.preventDefault();
+  public changeFilter(filter: Filter): void {
     this.todoService.changeFilter(filter);
   }
 }

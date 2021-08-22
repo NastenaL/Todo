@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-// TODO: Please, use index.ts instead of absolute path
-import { TodosContainer } from 'src/app/todos/components/todos-container/todos-container.component';
+import { TodosContainer } from 'src/app/todos/index';
 
 const routes: Routes = [
   {

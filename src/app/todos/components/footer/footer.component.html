@@ -4,36 +4,12 @@
   </span>
 
   <ul class="filters">
-    <li>
-      <!-- TODO: Don't subscribe multiple times to one cold observable for sake to performance reasons  -->
-      <!-- TODO: Refactor this approach to ngFor instead. It's could be more easily to extend this functionality and express it by array of link models instead -->
+    <li *ngFor="let f of filters">
       <a
-        [routerLink]="['/all']"
-        routerLinkActive="active"
-        [ngClass]="{ selected: (filter | async) === filterEnum.All }"
-        (click)="changeFilter($event, filterEnum.All)"
-      >
-        All
-      </a>
-    </li>
-    <li>
-      <a
-        [routerLink]="['/active']"
-        routerLinkActive="active"
-        [ngClass]="{ selected: (filter | async) === filterEnum.Active }"
-        (click)="changeFilter($event, filterEnum.Active)"
-      >
-        Active
-      </a>
-    </li>
-    <li>
-      <a
-        [routerLink]="['/completed']"
-        routerLinkActive="active"
-        [ngClass]="{ selected: (filter | async) === filterEnum.Completed }"
-        (click)="changeFilter($event, filterEnum.Completed)"
-      >
-        Completed
+        [routerLink]="f.url"
+        routerLinkActive="f"
+        (click)="changeFilter(f.text)">
+        {{f.text}}
       </a>
     </li>
   </ul>
