@@ -19,7 +19,6 @@ export class TodoService {
   }
 
   public onToggleAllTodos(isCompleted: boolean): void {
-    console.log('isCompleted', isCompleted);
     const updatedTodos = this.todosItems.map((todo) => {
       return {
         ...todo,
@@ -37,17 +36,28 @@ export class TodoService {
     this.isNoTodo = value;
   }
 
-  public changeText(id: string, text: string): void {
-    // TODO: Check and reuse update by id functionality. Could be reused at changeText and changeStatus methods
-    const updatedTodos = this.todosItems.map((todo) => {
+  public updateById(id: string, text: string|null): TodoModel[]{
+    return this.todosItems.map((todo) => {
       if (todo.id === id) {
-        return {
-          ...todo,
-          text,
-        };
+        if(text !== null){
+          return {
+            ...todo,
+            text
+          };
+        }
+        else{
+          return {
+            ...todo,
+            isCompleted: !todo.isCompleted
+          };
+        }
       }
       return todo;
     });
+  }
+
+  public changeText(id: string, text: string): void {
+    const updatedTodos = this.updateById(id, text);
     this.todos.next(updatedTodos);
   }
 
@@ -60,15 +70,7 @@ export class TodoService {
   }
 
   public toggleTodo(id: string): void {
-    const updatedTodos = this.todosItems.map((todo) => {
-      if (todo.id === id) {
-        return {
-          ...todo,
-          isCompleted: !todo.isCompleted,
-        };
-      }
-      return todo;
-    });
+    const updatedTodos = this.updateById(id, null);
     this.todos.next(updatedTodos);
   }
 
