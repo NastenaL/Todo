@@ -4,7 +4,6 @@
       class="toggle"
       type="checkbox"
       [checked]="todo.isCompleted"
-      (change)="toggleTodo()"
     />
     <label (dblclick)="setTodoInEditMode()">{{ todo.text }}</label>
     <button class="destroy" (click)="deleteItem()"></button>
@@ -13,7 +12,7 @@
     <input
       class="edit"
       [formControl]="editingText"
-      (keyup.enter)="changeTodo()"
+      (keyup.enter)="edit()"
     />
   </ng-container>
 </li>

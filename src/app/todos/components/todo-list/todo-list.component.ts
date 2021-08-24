@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
+import { TodoModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
 @Component({
@@ -24,18 +25,19 @@ export class TodoListComponent {
     this.todoService.onToggleAllTodos(this.toggleAll.value);
   }
 
+  private test: string;
   public onEditingId(editingId: string):void {
    this.todoService.setEditingId(editingId);
+   this.test = editingId;
   }
 
   public removeTodo(deleteId: string): void {
     this.todoService.removeTodo(deleteId);
   }
-  
-/*
 
-  public toggleTodo(): void {
-    this.todoService.toggleTodo(this.currentTodo.id);
+  public changeTodo(newText: string): void {
+    // TODO: Please, revisit this approach, and move changeTodo into parent and manage finish editing at that level
+    this.todoService.changeText(this.test, newText);
+   // this.editingId.emit("");
   }
-  */
 }

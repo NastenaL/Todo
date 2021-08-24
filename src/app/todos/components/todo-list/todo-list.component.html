@@ -13,6 +13,7 @@
       *ngFor="let todo of currentTodos | async"
       (editingId) = "onEditingId($event)"
       (deleteId) = "removeTodo($event)"
+      (editItem) = "changeTodo($event)"
       [todo] = "todo"
     ></app-todo>
   </ul>
