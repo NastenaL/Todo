@@ -12,10 +12,8 @@ import { combineLatest } from 'rxjs';
 export class TodoComponent implements OnInit {
   @Input() todo: TodoModel;
   // We can interpret this event emitter like a simple html element event, like click, change and so on.
-  @Output() editingId: EventEmitter<string> =
-    new EventEmitter<string>();
-
-@Output() delete = new EventEmitter<string>();
+  @Output() editingId = new EventEmitter<string>();
+  @Output() deleteId = new EventEmitter<string>();
 
   public editingText = new FormControl();
 
@@ -32,16 +30,14 @@ export class TodoComponent implements OnInit {
     this.editingId.emit(this.todo.id);
   }
 
-public deleteItem(){
-  this.delete.emit(this.todo.id);
-}
+  public deleteItem(){
+    this.deleteId.emit(this.todo.id);
+  }
 
-public toggleTodo(){
-console.log("toggle");
-}
+  public toggleTodo(){
+  }
 
   public changeTodo(): void {
-    console.log("change");
     // TODO: Please, revisit this approach, and move changeTodo into parent and manage finish editing at that level
     this.todoService.changeText(this.todo.id, this.editingText.value);
     this.editingId.emit("");

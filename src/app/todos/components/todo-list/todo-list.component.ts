@@ -21,25 +21,18 @@ export class TodoListComponent {
   } 
   
   public onToggleAllTodos(): void {
-    console.log("toggleAll");
     this.todoService.onToggleAllTodos(this.toggleAll.value);
   }
 
   public onEditingId(editingId: string):void {
-    console.log("onEditingId");
    this.todoService.setEditingId(editingId);
   }
 
-
+  public removeTodo(deleteId: string): void {
+    this.todoService.removeTodo(deleteId);
+  }
   
 /*
-  public getIsEditing(id: string): boolean{
-    return this.editingId === id;
-  }
-
-  public removeTodo(id: string): void {
-    this.todoService.removeTodo(id);
-  }
 
   public toggleTodo(): void {
     this.todoService.toggleTodo(this.currentTodo.id);
