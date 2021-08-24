@@ -2,7 +2,6 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { TodoModel } from '../../models/todo.model';
 import { FormControl } from '@angular/forms';
-import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
@@ -15,6 +14,7 @@ export class TodoComponent implements OnInit {
   @Output() editingId = new EventEmitter<string>();
   @Output() deleteId = new EventEmitter<string>();
   @Output() editItem = new EventEmitter<string>();
+  @Output() statusItem = new EventEmitter<string>();
 
   public editingText = new FormControl();
 
@@ -37,5 +37,9 @@ export class TodoComponent implements OnInit {
   public edit(){
     this.editItem.emit(this.editingText.value);
     this.editingId.emit("");
+  }
+
+  public toggleTodo(){
+    this.statusItem.emit(this.todo.id);
   }
 }

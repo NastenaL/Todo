@@ -10,7 +10,6 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
 export class TodoService {
   private readonly todos = new BehaviorSubject<TodoModel[]>([]);
   public readonly filter = new BehaviorSubject<Filter>(Filter.All);
- // private isNoTodo: Observable<boolean>;
   private readonly editingId = new BehaviorSubject<string>("");
   
 public setEditingId(id: string): void{
@@ -35,10 +34,6 @@ public setEditingId(id: string): void{
 
   public get getIsNoTodo(): Observable<boolean> {
     return this.todos.pipe(map((todos) => todos.length === 0));
-  }
-
-  @Input() set setIsNoTodo(value: Observable<boolean>) {
-   // this.isNoTodo = value;
   }
 
   public updateById(id: string, text: string|null): TodoModel[]{

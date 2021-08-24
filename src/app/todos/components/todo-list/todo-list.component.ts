@@ -36,8 +36,10 @@ export class TodoListComponent {
   }
 
   public changeTodo(newText: string): void {
-    // TODO: Please, revisit this approach, and move changeTodo into parent and manage finish editing at that level
     this.todoService.changeText(this.test, newText);
-   // this.editingId.emit("");
+  }
+
+  public toggleTodo(id: string){
+    this.todoService.toggleTodo(id);
   }
 }
