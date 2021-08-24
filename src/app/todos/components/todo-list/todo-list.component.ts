@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { TodoService } from '../../services/todo.service';
-import { TodoModel } from 'src/app/todos/models/todo.model';
 
 @Component({
   selector: 'todos-list',
@@ -11,30 +10,39 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
 })
 export class TodoListComponent {
 
-  get currentTodos(): Observable<TodoModel[]>
-  {
-    return this.todoService.getVisibleTodos();
-  } 
+  public currentTodos = this.todoService.getVisibleTodos();
+  public readonly toggleAll: FormControl = new FormControl('');
+  
+  constructor(private readonly todoService: TodoService) {}
   
   get isTodoListEmpty(): Observable<boolean>
   {
     return this.todoService.getIsNoTodo;
   } 
   
-  public readonly toggleAll: FormControl = new FormControl('');
-  public editingId: string | null = null;
-
-  constructor(private readonly todoService: TodoService) {}
-
   public onToggleAllTodos(): void {
+    console.log("toggleAll");
     this.todoService.onToggleAllTodos(this.toggleAll.value);
   }
 
-  public onEditingId(editingId: string | null):void {
-    this.editingId = editingId;
+  public onEditingId(editingId: string):void {
+    console.log("onEditingId");
+   this.todoService.setEditingId(editingId);
   }
 
-  public getIsEditing(todo : TodoModel): boolean{
-    return this.editingId === todo.id;
+
+  
+/*
+  public getIsEditing(id: string): boolean{
+    return this.editingId === id;
   }
+
+  public removeTodo(id: string): void {
+    this.todoService.removeTodo(id);
+  }
+
+  public toggleTodo(): void {
+    this.todoService.toggleTodo(this.currentTodo.id);
+  }
+  */
 }

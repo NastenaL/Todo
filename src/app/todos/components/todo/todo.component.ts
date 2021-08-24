@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { TodoService } from '../../services/todo.service';
 import { TodoModel } from '../../models/todo.model';
 import { FormControl } from '@angular/forms';
+import { combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-todo',
@@ -10,16 +11,20 @@ import { FormControl } from '@angular/forms';
 })
 export class TodoComponent implements OnInit {
   @Input() todo: TodoModel;
-  @Input() isEditing: boolean;
   // We can interpret this event emitter like a simple html element event, like click, change and so on.
-  @Output() editingId: EventEmitter<string | null> =
-    new EventEmitter<string | null>();
+  @Output() editingId: EventEmitter<string> =
+    new EventEmitter<string>();
+
+@Output() delete = new EventEmitter<string>();
 
   public editingText = new FormControl();
 
   constructor(private readonly todoService: TodoService) {}
 
   ngOnInit(): void {
+    const arr =  combineLatest([this.editingText.valueChanges, this.editingText.statusChanges]).subscribe((r) => console.log(r));
+    this.editingText.valueChanges;
+
     this.editingText.setValue(this.todo.text);
   }
 
@@ -27,21 +32,18 @@ export class TodoComponent implements OnInit {
     this.editingId.emit(this.todo.id);
   }
 
-  // TODO: Please, move removeTodo, toggleTodo and changeTodo handling to parent component
-  // TODO: By this way we make them Smart and Presentational components.
-  // https://angular.io/guide/inputs-outputs#sharing-data-between-child-and-parent-directives-and-components
-  // https://blog.angular-university.io/angular-2-smart-components-vs-presentation-components-whats-the-difference-when-to-use-each-and-why/
-  public removeTodo(): void {
-    this.todoService.removeTodo(this.todo.id);
-  }
+public deleteItem(){
+  this.delete.emit(this.todo.id);
+}
 
-  public toggleTodo(): void {
-    this.todoService.toggleTodo(this.todo.id);
-  }
+public toggleTodo(){
+console.log("toggle");
+}
 
   public changeTodo(): void {
+    console.log("change");
     // TODO: Please, revisit this approach, and move changeTodo into parent and manage finish editing at that level
     this.todoService.changeText(this.todo.id, this.editingText.value);
-    this.editingId.emit(null);
+    this.editingId.emit("");
   }
 }

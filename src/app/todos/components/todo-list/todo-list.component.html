@@ -11,9 +11,8 @@
   <ul class="todo-list">
     <app-todo
       *ngFor="let todo of currentTodos | async"
-      [todo]="todo"
-      [isEditing]="getIsEditing(todo)"
-      (editingId)="onEditingId($event)"
+      (editingId) = "onEditingId($event)"
+      [todo] = "todo"
     ></app-todo>
   </ul>
 </section>

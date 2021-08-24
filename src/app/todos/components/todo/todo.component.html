@@ -1,4 +1,4 @@
-<li [ngClass]="{ editing: isEditing }">
+<li [ngClass]="{ editing: todo.isEditing }">
   <div class="view">
     <input
       class="toggle"
@@ -7,9 +7,9 @@
       (change)="toggleTodo()"
     />
     <label (dblclick)="setTodoInEditMode()">{{ todo.text }}</label>
-    <button class="destroy" (click)="removeTodo()"></button>
+    <button class="destroy" (click)="deleteItem()"></button>
   </div>
-  <ng-container *ngIf="isEditing">
+  <ng-container *ngIf="todo.isEditing">
     <input
       class="edit"
       [formControl]="editingText"

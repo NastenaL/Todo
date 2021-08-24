@@ -1,6 +1,6 @@
 import { Injectable, Input } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, withLatestFrom } from 'rxjs/operators';
 import { Filter } from 'src/app/todos/enums/filter.enum';
 import { TodoModel } from 'src/app/todos/models/todo.model';
 
@@ -10,7 +10,12 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
 export class TodoService {
   private readonly todos = new BehaviorSubject<TodoModel[]>([]);
   public readonly filter = new BehaviorSubject<Filter>(Filter.All);
-  private isNoTodo: Observable<boolean>;
+ // private isNoTodo: Observable<boolean>;
+  private readonly editingId = new BehaviorSubject<string>("");
+  
+public setEditingId(id: string): void{
+  this.editingId.next(id);
+}
 
   public addTodo(text: string): void {
     const newTodo: TodoModel =  new TodoModel(text);
@@ -33,7 +38,7 @@ export class TodoService {
   }
 
   @Input() set setIsNoTodo(value: Observable<boolean>) {
-    this.isNoTodo = value;
+   // this.isNoTodo = value;
   }
 
   public updateById(id: string, text: string|null): TodoModel[]{
@@ -75,11 +80,12 @@ export class TodoService {
   }
 
   public getVisibleTodos() : Observable<TodoModel[]>{
-    return combineLatest([
+     const visibleTodos$ = combineLatest([
       this.todos,
-      this.filter,
+      this.filter
     ]).pipe(
       map(([todos, filter]: [TodoModel[], Filter]) => {
+        console.log("emit1");
         if (filter == Filter.Active) {
           return todos.filter((todo) => !todo.isCompleted);
         } else if (filter == Filter.Completed) {
@@ -87,10 +93,23 @@ export class TodoService {
         }
         return todos;
       })
-    );
+      );
+      
+      return combineLatest([visibleTodos$, this.editingId]).pipe(map(
+        ([todos, editingId]) =>{
+        console.log("emit2");
+        return todos.map(todo => {
+          return {
+            ... todo,
+            isEditing: todo.id === editingId
+          }
+        })
+      }
+    ));
   }
 
   public changeFilter(filter: Filter): void{
+    console.log("filter");
     this.filter.next(filter);
   }
 
