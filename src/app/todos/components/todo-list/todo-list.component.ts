@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
-import { TodoModel } from '../../models/todo.model';
 import { TodoService } from '../../services/todo.service';
 
 @Component({
@@ -11,6 +10,7 @@ import { TodoService } from '../../services/todo.service';
 })
 export class TodoListComponent {
 
+  private id: string;
   public currentTodos = this.todoService.getVisibleTodos();
   public readonly toggleAll: FormControl = new FormControl('');
   
@@ -25,10 +25,9 @@ export class TodoListComponent {
     this.todoService.onToggleAllTodos(this.toggleAll.value);
   }
 
-  private test: string;
-  public onEditingId(editingId: string):void {
+  public onEditingId(editingId: string):void { 
    this.todoService.setEditingId(editingId);
-   this.test = editingId;
+   this.id = editingId;
   }
 
   public removeTodo(deleteId: string): void {
@@ -36,7 +35,7 @@ export class TodoListComponent {
   }
 
   public changeTodo(newText: string): void {
-    this.todoService.changeText(this.test, newText);
+    this.todoService.changeText(this.id, newText);
   }
 
   public toggleTodo(id: string){

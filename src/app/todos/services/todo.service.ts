@@ -80,7 +80,6 @@ public setEditingId(id: string): void{
       this.filter
     ]).pipe(
       map(([todos, filter]: [TodoModel[], Filter]) => {
-        console.log("emit1");
         if (filter == Filter.Active) {
           return todos.filter((todo) => !todo.isCompleted);
         } else if (filter == Filter.Completed) {
@@ -92,7 +91,6 @@ public setEditingId(id: string): void{
       
       return combineLatest([visibleTodos$, this.editingId]).pipe(map(
         ([todos, editingId]) =>{
-        console.log("emit2");
         return todos.map(todo => {
           return {
             ... todo,
@@ -104,7 +102,6 @@ public setEditingId(id: string): void{
   }
 
   public changeFilter(filter: Filter): void{
-    console.log("filter");
     this.filter.next(filter);
   }
 
