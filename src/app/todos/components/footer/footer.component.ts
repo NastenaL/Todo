@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { Filter } from '../../enums/filter.enum';
 import { TodoService } from '../../services/todo.service';
@@ -11,27 +10,15 @@ import { TodoService } from '../../services/todo.service';
 })
 
 export class FooterComponent {
-  public isEmptyList$: Observable<boolean> = this.todoService.isEmptyList;
-  public activeCount$: Observable<number> = this.todoService.activeCount;
-  public filterEnum = Filter;
-  public readonly filter = this.todoService.filter;
-  public readonly filters = [{ text: Filter.Active, url: '/'+Filter.Active}, 
+  public readonly activeCount$: Observable<number> = this.todoService.activeCount;
+  public readonly filters = [
+    {text: Filter.Active, url: '/'+Filter.Active}, 
     {text: Filter.All, url: '/'+Filter.All} ,
     {text: Filter.Completed, url: '/'+Filter.Completed}];
 
+  constructor(private readonly todoService: TodoService) {}
 
-  constructor(
-    private readonly todoService: TodoService,
-    private readonly activateRoute: ActivatedRoute,
-    private readonly router: Router
-    ) {}
-
-  public ngAfterViewInit(){
-    this.activateRoute.url.subscribe(console.log);
-    this.router.events.subscribe(console.log);
-  }
-
-  public changeFilter(filter: Filter): void {
-    this.todoService.changeFilter(filter);
+  public setFilter(filter: Filter): void {
+    this.todoService.setFilter(filter);
   }
 }

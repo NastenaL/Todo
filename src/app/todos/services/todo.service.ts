@@ -101,7 +101,7 @@ public setEditingId(id: string): void{
     ));
   }
 
-  public changeFilter(filter: Filter): void{
+  public setFilter(filter: Filter): void{
     this.filter.next(filter);
   }
 

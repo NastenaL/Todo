@@ -1,15 +1,15 @@
-<footer class="footer" [ngClass]="{ isHidden: isEmptyList$ | async }">
+<footer class="footer">
   <span class="todo-count">
     <strong>{{ activeCount$ | async }}</strong> item(s) left
   </span>
 
   <ul class="filters">
-    <li *ngFor="let f of filters">
+    <li *ngFor="let filter of filters">
       <a
-        [routerLink]="f.url"
-        routerLinkActive="f"
-        (click)="changeFilter(f.text)">
-        {{f.text}}
+        [routerLink]="filter.url"
+        routerLinkActive="activeFilter"
+        (click)="setFilter(filter.text)">
+        {{filter.text}}
       </a>
     </li>
   </ul>
