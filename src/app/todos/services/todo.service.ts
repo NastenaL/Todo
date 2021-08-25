@@ -69,7 +69,7 @@ public setEditingId(id: string): void{
     this.todos.next(updatedTodos);
   }
 
-  public toggleTodo(id: string): void {
+  public setTodoStatus(id: string): void {
     const updatedTodos = this.updateById(id, null);
     this.todos.next(updatedTodos);
   }

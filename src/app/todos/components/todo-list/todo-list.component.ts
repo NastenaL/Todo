@@ -38,7 +38,7 @@ export class TodoListComponent {
     this.todoService.changeText(this.id, newText);
   }
 
-  public toggleTodo(id: string){
-    this.todoService.toggleTodo(id);
+  public setTodoStatus(id: string){
+    this.todoService.setTodoStatus(id);
   }
 }

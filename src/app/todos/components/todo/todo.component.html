@@ -6,13 +6,15 @@
       [checked]="todo.isCompleted"
       (change)="toggleTodo()"
     />
-    <label (dblclick)="setTodoInEditMode()">{{ todo.text }}</label>
-    <button class="destroy" (click)="deleteItem()"></button>
+    <label (dblclick)="setEditMode()">{{ todo.text }}</label>
+    <button 
+      class="destroy" 
+      (click)="deleteItem()"></button>
   </div>
   <ng-container *ngIf="todo.isEditing">
     <input
       class="edit"
-      [formControl]="editingText"
+      [formControl]="newText"
       (keyup.enter)="edit()"
     />
   </ng-container>

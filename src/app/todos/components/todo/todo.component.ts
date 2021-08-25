@@ -1,5 +1,4 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { TodoService } from '../../services/todo.service';
 import { TodoModel } from '../../models/todo.model';
 import { FormControl } from '@angular/forms';
 
@@ -15,15 +14,14 @@ export class TodoComponent implements OnInit {
   @Output() editItem = new EventEmitter<string>();
   @Output() statusItem = new EventEmitter<string>();
   
-  public editingText = new FormControl();
+  public newText = new FormControl();
   
   ngOnInit(): void {
-    this.editingText.valueChanges;
-
-    this.editingText.setValue(this.todo.text);
+    this.newText.valueChanges;
+    this.newText.setValue(this.todo.text);
   }
 
-  public setTodoInEditMode(): void {
+  public setEditMode(): void {
     this.editingId.emit(this.todo.id);
   }
 
@@ -32,7 +30,7 @@ export class TodoComponent implements OnInit {
   }
 
   public edit(){
-    this.editItem.emit(this.editingText.value);
+    this.editItem.emit(this.newText.value);
     this.editingId.emit("");
   }
 
