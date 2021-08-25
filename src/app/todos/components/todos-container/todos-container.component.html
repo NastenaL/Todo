@@ -1,5 +1,5 @@
 <div class="todoapp">
-  <todos-header></todos-header>
+  <todos-header (newItem) = "addTodo($event)"></todos-header>
   <todos-list></todos-list>
   <footer-component></footer-component>
 </div>

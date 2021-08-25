@@ -6,9 +6,9 @@
   <ul class="filters">
     <li *ngFor="let filter of filters">
       <a
+        (click)="setFilter(filter.text)"
         [routerLink]="filter.url"
-        routerLinkActive="activeFilter"
-        (click)="setFilter(filter.text)">
+        routerLinkActive="activeFilter">
         {{filter.text}}
       </a>
     </li>

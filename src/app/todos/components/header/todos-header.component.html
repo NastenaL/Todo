@@ -3,11 +3,11 @@
 
   <form>
     <input
-      class="new-todo"
-      placeholder="What needs to be done?"
       autoFocus
-      (keyup.enter)="addTodo()"
+      class="new-todo"
       [formControl]="todoControl"
+      (keyup.enter)="addTodo()"
+      placeholder="What needs to be done?"
     />
   </form>
 </header>
