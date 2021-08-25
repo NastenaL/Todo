@@ -9,8 +9,8 @@ import { FormControl } from '@angular/forms';
 })
 export class TodoComponent implements OnInit {
   @Input() todo: TodoModel;
-  @Output() editingId = new EventEmitter<string>();
-  @Output() deleteId = new EventEmitter<string>();
+  @Output() setEditingId = new EventEmitter<string>();
+  @Output() deleteItem = new EventEmitter<string>();
   @Output() editItem = new EventEmitter<string>();
   @Output() statusItem = new EventEmitter<string>();
   
@@ -22,19 +22,19 @@ export class TodoComponent implements OnInit {
   }
 
   public setEditMode(): void {
-    this.editingId.emit(this.todo.id);
+    this.setEditingId.emit(this.todo.id);
   }
 
-  public deleteItem(){
-    this.deleteId.emit(this.todo.id);
+  public delete(){
+    this.deleteItem.emit(this.todo.id);
   }
 
   public edit(){
     this.editItem.emit(this.newText.value);
-    this.editingId.emit("");
+    this.setEditingId.emit("");
   }
 
-  public toggleTodo(){
+  public setStatus(){
     this.statusItem.emit(this.todo.id);
   }
 }

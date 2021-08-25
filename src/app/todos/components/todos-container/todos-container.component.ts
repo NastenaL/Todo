@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { TodoService } from '../../services/todo.service';
 
 @Component({
@@ -11,8 +10,6 @@ export class TodosContainer {
   constructor(private readonly todoService: TodoService) {}
 
   public addTodo(todoControl: string):void{
-    
-    this.todoService.addTodo(todoControl);
-    todoControl = "";
+    this.todoService.addItem(todoControl);
   }
 }

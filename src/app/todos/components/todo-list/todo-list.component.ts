@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { Observable } from 'rxjs';
 import { TodoService } from '../../services/todo.service';
 
 @Component({
@@ -11,34 +10,29 @@ import { TodoService } from '../../services/todo.service';
 export class TodoListComponent {
 
   private id: string;
-  public currentTodos = this.todoService.getVisibleTodos();
-  public readonly toggleAll: FormControl = new FormControl('');
+  public readonly currentItems = this.todoService.getCurrentItems();
+  public readonly completedAll = new FormControl('');
   
   constructor(private readonly todoService: TodoService) {}
   
-  get isTodoListEmpty(): Observable<boolean>
-  {
-    return this.todoService.getIsNoTodo;
-  } 
-  
-  public onToggleAllTodos(): void {
-    this.todoService.onToggleAllTodos(this.toggleAll.value);
+  public completedAllItems(): void {
+    this.todoService.completedAllItems(this.completedAll.value);
   }
 
-  public onEditingId(editingId: string):void { 
+  public setEditingId(editingId: string):void { 
    this.todoService.setEditingId(editingId);
    this.id = editingId;
   }
 
-  public removeTodo(deleteId: string): void {
-    this.todoService.removeTodo(deleteId);
+  public removeItem(deleteId: string): void {
+    this.todoService.removeItem(deleteId);
   }
 
-  public changeTodo(newText: string): void {
-    this.todoService.changeText(this.id, newText);
+  public editItem(newText: string): void {
+    this.todoService.updateItemText(this.id, newText);
   }
 
-  public setTodoStatus(id: string){
-    this.todoService.setTodoStatus(id);
+  public setItemStatus(id: string){
+    this.todoService.setItemStatus(id);
   }
 }

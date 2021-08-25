@@ -16,13 +16,13 @@ public setEditingId(id: string): void{
   this.editingId.next(id);
 }
 
-  public addTodo(text: string): void {
+  public addItem(text: string): void {
     const newTodo: TodoModel =  new TodoModel(text);
     const updatedTodos = [...this.todosItems, newTodo];
     this.todos.next(updatedTodos);
   }
 
-  public onToggleAllTodos(isCompleted: boolean): void {
+  public completedAllItems(isCompleted: boolean): void {
     const updatedTodos = this.todosItems.map((todo) => {
       return {
         ...todo,
@@ -56,12 +56,12 @@ public setEditingId(id: string): void{
     });
   }
 
-  public changeText(id: string, text: string): void {
+  public updateItemText(id: string, text: string): void {
     const updatedTodos = this.updateById(id, text);
     this.todos.next(updatedTodos);
   }
 
-  public removeTodo(id: string): void {
+  public removeItem(id: string): void {
     const updatedTodos = this.todos
       .getValue()
       .filter((todo) => todo.id !== id);
@@ -69,13 +69,13 @@ public setEditingId(id: string): void{
     this.todos.next(updatedTodos);
   }
 
-  public setTodoStatus(id: string): void {
+  public setItemStatus(id: string): void {
     const updatedTodos = this.updateById(id, null);
     this.todos.next(updatedTodos);
   }
 
-  public getVisibleTodos() : Observable<TodoModel[]>{
-     const visibleTodos$ = combineLatest([
+  public getCurrentItems() : Observable<TodoModel[]>{
+     const currentTodos$ = combineLatest([
       this.todos,
       this.filter
     ]).pipe(
@@ -89,7 +89,7 @@ public setEditingId(id: string): void{
       })
       );
       
-      return combineLatest([visibleTodos$, this.editingId]).pipe(map(
+      return combineLatest([currentTodos$, this.editingId]).pipe(map(
         ([todos, editingId]) =>{
         return todos.map(todo => {
           return {
@@ -108,12 +108,6 @@ public setEditingId(id: string): void{
   public get activeCount(){
     return this.todos.pipe(
       map((todos) => todos.filter((todo) => !todo.isCompleted).length)
-    );
-  }
-
-  public get isEmptyList(){
-    return this.todos.pipe(
-      map((todos) => todos.length === 0)
     );
   }
   

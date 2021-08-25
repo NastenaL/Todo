@@ -4,12 +4,12 @@
       class="toggle"
       type="checkbox"
       [checked]="todo.isCompleted"
-      (change)="toggleTodo()"
+      (change)="setStatus()"
     />
     <label (dblclick)="setEditMode()">{{ todo.text }}</label>
     <button 
       class="destroy" 
-      (click)="deleteItem()"></button>
+      (click)="delete()"></button>
   </div>
   <ng-container *ngIf="todo.isEditing">
     <input

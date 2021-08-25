@@ -1,20 +1,20 @@
-<section class="main" [ngClass]="{ hidden: isTodoListEmpty | async }">
+<section class="main">
   <input
     id="toggle-all"
     type="checkbox"
-    (change)="onToggleAllTodos()"
-    [formControl]="toggleAll"
+    (change)="completedAllItems()"
+    [formControl]="completedAll"
   />
 
   <label for="toggle-all">Mark all as completed</label>
 
   <ul class="todo-list">
     <app-todo
-      *ngFor="let todo of currentTodos | async"
-      (editingId) = "onEditingId($event)"
-      (deleteId) = "removeTodo($event)"
-      (editItem) = "changeTodo($event)"
-      (statusItem) = "setTodoStatus($event)"
+      *ngFor="let todo of currentItems | async"
+      (setEditingId) = "setEditingId($event)"
+      (deleteItem) = "removeItem($event)"
+      (editItem) = "editItem($event)"
+      (statusItem) = "setItemStatus($event)"
       [todo] = "todo"
     ></app-todo>
   </ul>
