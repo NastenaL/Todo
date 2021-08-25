@@ -1,6 +1,6 @@
-import { Injectable, Input } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { BehaviorSubject, combineLatest, Observable } from 'rxjs';
-import { map, withLatestFrom } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { Filter } from 'src/app/todos/enums/filter.enum';
 import { TodoModel } from 'src/app/todos/models/todo.model';
 
@@ -9,34 +9,30 @@ import { TodoModel } from 'src/app/todos/models/todo.model';
 })
 export class TodoService {
   private readonly todos = new BehaviorSubject<TodoModel[]>([]);
-  public readonly filter = new BehaviorSubject<Filter>(Filter.All);
+  private readonly filter = new BehaviorSubject<Filter>(Filter.All);
   private readonly editingId = new BehaviorSubject<string>("");
   
-public setEditingId(id: string): void{
-  this.editingId.next(id);
-}
+  public setEditingId(id: string): void{
+    this.editingId.next(id);
+  }
 
   public addItem(text: string): void {
     const newTodo: TodoModel =  new TodoModel(text);
-    const updatedTodos = [...this.todosItems, newTodo];
-    this.todos.next(updatedTodos);
+    const currentTodos = [...this.todosItems, newTodo];
+    this.todos.next(currentTodos);
   }
 
   public completedAllItems(isCompleted: boolean): void {
-    const updatedTodos = this.todosItems.map((todo) => {
+    const currentTodos = this.todosItems.map((todo) => {
       return {
         ...todo,
         isCompleted,
       };
     });
-    this.todos.next(updatedTodos);
+    this.todos.next(currentTodos);
   }
 
-  public get getIsNoTodo(): Observable<boolean> {
-    return this.todos.pipe(map((todos) => todos.length === 0));
-  }
-
-  public updateById(id: string, text: string|null): TodoModel[]{
+  public updateItemById(id: string, text: string|null): TodoModel[]{
     return this.todosItems.map((todo) => {
       if (todo.id === id) {
         if(text !== null){
@@ -57,27 +53,27 @@ public setEditingId(id: string): void{
   }
 
   public updateItemText(id: string, text: string): void {
-    const updatedTodos = this.updateById(id, text);
-    this.todos.next(updatedTodos);
+    const currentTodos = this.updateItemById(id, text);
+    this.todos.next(currentTodos);
   }
 
   public removeItem(id: string): void {
-    const updatedTodos = this.todos
+    const currentTodos = this.todos
       .getValue()
       .filter((todo) => todo.id !== id);
 
-    this.todos.next(updatedTodos);
+    this.todos.next(currentTodos);
   }
 
   public setItemStatus(id: string): void {
-    const updatedTodos = this.updateById(id, null);
-    this.todos.next(updatedTodos);
+    const currentTodos = this.updateItemById(id, null);
+    this.todos.next(currentTodos);
   }
 
   public getCurrentItems() : Observable<TodoModel[]>{
-     const currentTodos$ = combineLatest([
-      this.todos,
-      this.filter
+    const currentTodos$ = combineLatest([
+    this.todos,
+    this.filter
     ]).pipe(
       map(([todos, filter]: [TodoModel[], Filter]) => {
         if (filter == Filter.Active) {

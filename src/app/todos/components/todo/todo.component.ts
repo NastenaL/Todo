@@ -14,7 +14,7 @@ export class TodoComponent implements OnInit {
   @Output() editItem = new EventEmitter<string>();
   @Output() statusItem = new EventEmitter<string>();
   
-  public newText = new FormControl();
+  public readonly newText = new FormControl();
   
   ngOnInit(): void {
     this.newText.valueChanges;
