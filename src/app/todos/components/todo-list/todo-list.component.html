@@ -11,7 +11,7 @@
   <ul class="todo-list">
     <app-todo
       *ngFor="let todo of currentTodos | async"
-      (dblclick) = "onEditingId(todo.id)"
+      (editingId) = "onEditingId($event)"
       (deleteId) = "removeTodo($event)"
       (editItem) = "changeTodo($event)"
       (statusItem) = "toggleTodo($event)"
